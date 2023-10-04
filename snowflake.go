@@ -11,7 +11,7 @@ import (
 
 type ID int64
 
-type snowflake struct {
+type Snowflake struct {
 	mu sync.Mutex
 
 	epoch         int64
@@ -40,7 +40,7 @@ var overMaxSequenceError = errors.New("reached the maximum number of IDs during 
 
 var clock sclock.Clock = sclock.NewRealClock()
 
-func NewSnowflake(epochTime time.Time, datacenterID, machineID int64) (*snowflake, error) {
+func NewSnowflake(epochTime time.Time, datacenterID, machineID int64) (*Snowflake, error) {
 	if datacenterID > maxDatacenterID {
 		return nil, fmt.Errorf("datacenterID must be between 0 and %d", maxDatacenterID)
 	}
@@ -49,7 +49,7 @@ func NewSnowflake(epochTime time.Time, datacenterID, machineID int64) (*snowflak
 		return nil, fmt.Errorf("machineID must be between 0 and %d", maxMachineID)
 	}
 
-	return &snowflake{
+	return &Snowflake{
 		mu:           sync.Mutex{},
 		epoch:        epochTime.UnixMilli(),
 		datacenterID: datacenterID,
@@ -57,7 +57,7 @@ func NewSnowflake(epochTime time.Time, datacenterID, machineID int64) (*snowflak
 	}, nil
 }
 
-func (s *snowflake) Generate() ID {
+func (s *Snowflake) Generate() ID {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
