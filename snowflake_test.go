@@ -1,9 +1,10 @@
 package snowflake
 
 import (
-	sclock "snowflake/clock"
 	"testing"
 	"time"
+
+	sclock "github.com/nomuyoshi/snowflake/clock"
 )
 
 // 同一ミリ秒で発行できるID数超えてしまうため回数指定して実行 -benchtime=4096x

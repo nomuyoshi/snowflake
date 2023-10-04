@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	sclock "snowflake/clock"
+	sclock "github.com/nomuyoshi/snowflake/clock"
 )
 
 type ID int64
